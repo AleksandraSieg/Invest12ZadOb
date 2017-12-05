@@ -20,6 +20,7 @@ public class InvestApplication implements CommandLineRunner {
 
     public Investment createInvestment(int deposityValue){
         Investment invest = new Investment(deposityValue);
+        invest.getDeposityValue();
         return invest;
     }
 
