@@ -7,6 +7,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import pl.madison.dao.InvestmentDao;
 import pl.madison.domain.Investment;
 
+import javax.persistence.criteria.CriteriaBuilder;
+
 @SpringBootApplication
 public class InvestApplication implements CommandLineRunner {
     public static void main(String[] args) {
@@ -16,16 +18,18 @@ public class InvestApplication implements CommandLineRunner {
     @Autowired
     InvestmentDao investmentDao;
 
-    public void run(String... strings) throws Exception {
-        Investment invest1 = new Investment();
-        Investment invest2 = new Investment();
-        Investment invest3 = new Investment();
-        Investment invest4 = new Investment();
+    public Investment createInvestment(int deposityValue){
+        Investment invest = new Investment(deposityValue);
+        return invest;
+    }
 
-        invest1.setDeposityValue(1000);
-        invest2.setDeposityValue(3000);
-        invest3.setDeposityValue(5000);
-        invest4.setDeposityValue(500);
+
+    public void run(String... strings) throws Exception {
+        Investment invest1 = createInvestment(1000);
+        Investment invest2 = createInvestment(3000);
+        Investment invest3 = createInvestment(10000);
+        Investment invest4 = createInvestment(500);
+
 
         investmentDao.save(invest1);
         investmentDao.save(invest2);

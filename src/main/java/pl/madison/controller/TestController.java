@@ -25,7 +25,7 @@ public class TestController {
         return invest;
     }
 
-    @RequestMapping(value = "/theHighest", method = RequestMethod.GET)
+    @RequestMapping(value = "/theHighestInvestment", method = RequestMethod.GET)
     public String theHighest(){
         Investment investTemp = investmentDao.findOne(1L);
 
@@ -38,7 +38,7 @@ public class TestController {
         return "the highest investment is: "+investTemp.getDeposityValue();
     }
 
-    @RequestMapping(value = "/theLowest", method = RequestMethod.GET)
+    @RequestMapping(value = "/theLowestInwestment", method = RequestMethod.GET)
     public String theLowest(){
         Investment investTemp = investmentDao.findOne(1L);
 
@@ -69,8 +69,8 @@ public class TestController {
 
     @RequestMapping(value = "/add", method = RequestMethod.PUT)
     public String add(@RequestParam("deposityValue") int deposityValue){
-        Investment investTemp = new Investment();
-        investTemp.setDeposityValue(deposityValue);
+        Investment investTemp = new Investment(deposityValue);
+  //      investTemp.setDeposityValue(deposityValue);
         investmentDao.save(investTemp);
 
         return "Adding completed :)";
