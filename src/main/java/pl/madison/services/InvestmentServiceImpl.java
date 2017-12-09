@@ -1,11 +1,13 @@
 package pl.madison.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import pl.madison.dao.InvestmentDao;
 import pl.madison.domain.Investment;
 
 import java.util.List;
 
+@Service
 public class InvestmentServiceImpl implements IInvestmentService {
     @Autowired
     private InvestmentDao investmentDao;

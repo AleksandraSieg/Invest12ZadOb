@@ -18,7 +18,7 @@ public class TestController {
 //    InvestmentDao investmentDao;
 
     @Autowired
-    IInvestmentService iInvestmentService;
+    private IInvestmentService iInvestmentService;
 
     @RequestMapping(value = "/showMustGoOn", method = RequestMethod.GET)
     public List<Investment> showMustGoOn(){
@@ -41,7 +41,7 @@ public class TestController {
         return "the highest investment is: "+investTemp.getDeposityValue();
     }
 
-    @RequestMapping(value = "/theLowestInwestment", method = RequestMethod.GET)
+    @RequestMapping(value = "/theLowestInvestment", method = RequestMethod.GET)
     public String theLowest(){
         Investment investTemp = iInvestmentService.findOne(1L);
 
@@ -57,7 +57,6 @@ public class TestController {
     @RequestMapping(value = "/update", method = RequestMethod.PUT)
     public String update(@RequestParam("id") Long id, @RequestParam("deposityValue") int deposityValue){
         Investment investTemp = Investment.builder().id(id).build();
-      //  Investment investTemp = investmentDao.findOne(id);
         investTemp.setDeposityValue(deposityValue);
         iInvestmentService.save(investTemp);
 
@@ -73,9 +72,8 @@ public class TestController {
 
     @RequestMapping(value = "/add", method = RequestMethod.PUT)
     public String add(@RequestParam("deposityValue") int deposityValue){
-//        Investment investTemp = new Investment();
-//        investTemp.setDeposityValue(deposityValue);
-//        investmentDao.save(investTemp);
+        Investment investTemp = Investment.builder().deposityValue(deposityValue).build();
+        iInvestmentService.save(investTemp);
 
         return "Adding completed :)";
     }
