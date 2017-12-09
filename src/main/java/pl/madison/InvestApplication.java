@@ -18,23 +18,23 @@ public class InvestApplication implements CommandLineRunner {
     @Autowired
     InvestmentDao investmentDao;
 
-    public Investment createInvestment(int deposityValue){
-        Investment invest = new Investment(deposityValue);
-        invest.getDeposityValue();
-        return invest;
-    }
+//    public Investment createInvestment(int deposityValue){
+//        Investment invest = new Investment();
+//        invest.setDeposityValue(deposityValue);
+//        return invest;
+//    }
 
 
     public void run(String... strings) throws Exception {
-        Investment invest1 = createInvestment(1000);
-        Investment invest2 = createInvestment(3000);
-        Investment invest3 = createInvestment(10000);
-        Investment invest4 = createInvestment(500);
-
-
-        investmentDao.save(invest1);
-        investmentDao.save(invest2);
-        investmentDao.save(invest3);
-        investmentDao.save(invest4);
+//        Investment invest1 = createInvestment(1000);
+//        Investment invest2 = createInvestment(3000);
+//        Investment invest3 = createInvestment(10000);
+//        Investment invest4 = createInvestment(500);
+//
+//
+//        investmentDao.save(invest1);
+//        investmentDao.save(invest2);
+//        investmentDao.save(invest3);
+//        investmentDao.save(invest4);
     }
 }

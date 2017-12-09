@@ -18,8 +18,5 @@ public class Investment {
     private Long id;
     private int deposityValue;
 
-    public Investment(int deposityValue) {
-        this.deposityValue = deposityValue;
-    }
 }
 

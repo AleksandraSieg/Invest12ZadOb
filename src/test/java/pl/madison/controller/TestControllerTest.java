@@ -17,10 +17,12 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import pl.madison.dao.InvestmentDao;
 import pl.madison.domain.Investment;
+import pl.madison.services.IInvestmentService;
 
 
 import static org.junit.Assert.*;
 
+@RunWith(MockitoJUnitRunner.class)
 public class TestControllerTest {
 
     @InjectMocks
@@ -29,15 +31,19 @@ public class TestControllerTest {
     @Mock
     private InvestmentDao investmentDao;
 
+    @Mock
+    private IInvestmentService iInvestmentService;
+
     private MockMvc mockMvc;
 
     @Before
-    public void Init(){
+    public void init(){
         mockMvc = MockMvcBuilders.standaloneSetup(testController).build();
     }
 
     @Test
     public void showMustGoOn() throws Exception {
+
     }
 
     @Test
@@ -50,7 +56,7 @@ public class TestControllerTest {
 
     @Test
     public void update() throws Exception {
-        Mockito.when(investmentDao.findOne(3L)).thenReturn(Investment.builder().id(2L).deposityValue(300).build());
+        Mockito.when(iInvestmentService.findOne(3L)).thenReturn(Investment.builder().id(2L).deposityValue(300).build());
         mockMvc.perform(MockMvcRequestBuilders.put("/update").param("id","3")
                 .param("deposityValue", "300")).andExpect(MockMvcResultMatchers.content()
                 .string("Update completed ^^"));

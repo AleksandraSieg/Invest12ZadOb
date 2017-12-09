@@ -7,29 +7,32 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import pl.madison.dao.InvestmentDao;
 import pl.madison.domain.Investment;
+import pl.madison.services.IInvestmentService;
+
+import java.util.List;
 
 @RestController
 public class TestController {
 
+//    @Autowired
+//    InvestmentDao investmentDao;
+
     @Autowired
-    InvestmentDao investmentDao;
+    IInvestmentService iInvestmentService;
 
     @RequestMapping(value = "/showMustGoOn", method = RequestMethod.GET)
-    public String showMustGoOn(){
-        String invest = "";
+    public List<Investment> showMustGoOn(){
+        return (List<Investment>)iInvestmentService.findAll();
 
-        for (Investment investment : investmentDao.findAll()) {
-            invest = invest + investment;
-        }
 
-        return invest;
     }
 
     @RequestMapping(value = "/theHighestInvestment", method = RequestMethod.GET)
     public String theHighest(){
-        Investment investTemp = investmentDao.findOne(1L);
+        Investment investTemp = iInvestmentService.findOne(1L);
 
-        for (Investment investment : investmentDao.findAll()) {
+
+        for (Investment investment : iInvestmentService.findAll()) {
             if(investTemp.getDeposityValue()<investment.getDeposityValue()){
                 investTemp = investment;
             }
@@ -40,9 +43,9 @@ public class TestController {
 
     @RequestMapping(value = "/theLowestInwestment", method = RequestMethod.GET)
     public String theLowest(){
-        Investment investTemp = investmentDao.findOne(1L);
+        Investment investTemp = iInvestmentService.findOne(1L);
 
-        for (Investment investment : investmentDao.findAll()) {
+        for (Investment investment : iInvestmentService.findAll()) {
             if(investTemp.getDeposityValue()>investment.getDeposityValue()){
                 investTemp = investment;
             }
@@ -53,25 +56,26 @@ public class TestController {
 
     @RequestMapping(value = "/update", method = RequestMethod.PUT)
     public String update(@RequestParam("id") Long id, @RequestParam("deposityValue") int deposityValue){
-        Investment investTemp = investmentDao.findOne(id);
+        Investment investTemp = Investment.builder().id(id).build();
+      //  Investment investTemp = investmentDao.findOne(id);
         investTemp.setDeposityValue(deposityValue);
-        investmentDao.save(investTemp);
+        iInvestmentService.save(investTemp);
 
         return "Update completed ^^";
     }
 
     @RequestMapping(value = "/delete", method = RequestMethod.DELETE)
     public String delete(@RequestParam("id") Long id){
-        investmentDao.delete(id);
+        iInvestmentService.delete(id);
 
         return "Deleting completed ^^";
     }
 
     @RequestMapping(value = "/add", method = RequestMethod.PUT)
     public String add(@RequestParam("deposityValue") int deposityValue){
-        Investment investTemp = new Investment(deposityValue);
-  //      investTemp.setDeposityValue(deposityValue);
-        investmentDao.save(investTemp);
+//        Investment investTemp = new Investment();
+//        investTemp.setDeposityValue(deposityValue);
+//        investmentDao.save(investTemp);
 
         return "Adding completed :)";
     }
